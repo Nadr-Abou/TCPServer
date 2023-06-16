@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 
 public class ClientHandler {
@@ -12,6 +13,9 @@ public class ClientHandler {
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
+
+        InetAddress inetAddress = this.clientSocket.getInetAddress();
+        System.out.println("Connected from: " + inetAddress);
     }
 
     boolean manage(){
