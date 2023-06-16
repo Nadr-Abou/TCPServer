@@ -27,21 +27,23 @@ public class MyServer
     public static void main( String[] args )
     {
 
-        Socket clientSocket;
+
 
         if(!startServer()){
             return;
         }
+        while (true){
+            Socket clientSocket;
+            try{
+                clientSocket = serverSocket.accept();
+            } catch(IOException e){
+                throw new RuntimeException(e);
+            }
 
-        try{
-            clientSocket = serverSocket.accept();
-        } catch(IOException e){
-            throw new RuntimeException(e);
-        }
-
-        ClientHandler clientHandler = new ClientHandler(clientSocket);
-        if(!clientHandler.manage()){
-            System.out.println("Cannot run client");
+            ClientHandler clientHandler = new ClientHandler(clientSocket);
+            if(!clientHandler.manage()){
+                System.out.println("Cannot run client");
+            }
         }
     }
 
