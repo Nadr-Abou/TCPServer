@@ -6,9 +6,10 @@ import java.util.List;
 public class GameModel {
     private static GameModel INSTANCE;
     List<ClientHandler> ClientList = new ArrayList<>();
-
+    private MyTimer myTimer;
 
     private GameModel() {
+        this.myTimer = new MyTimer();
     }
 
     public static GameModel getInstance() {
