@@ -26,13 +26,12 @@ public class MyServer
 
     public static void main( String[] args )
     {
-
-
-
         if(!startServer()){
             return;
         }
+
         while (true){
+
             Socket clientSocket;
             try{
                 clientSocket = serverSocket.accept();
@@ -41,9 +40,7 @@ public class MyServer
             }
 
             ClientHandler clientHandler = new ClientHandler(clientSocket);
-            if(!clientHandler.manage()){
-                System.out.println("Cannot run client");
-            }
+            clientHandler.start();
         }
     }
 
