@@ -56,6 +56,7 @@ public class ClientHandler extends Thread{
                 return false;
             }
             System.out.println(s);
+            GameModel.getInstance().sendToAll(s);
             out.println(s.toUpperCase());
         }
         return true;
@@ -69,7 +70,9 @@ public class ClientHandler extends Thread{
     }
 
     void sendMsg(String msg){
-        out.println(msg);
-        out.flush();
+        if(out!=null){
+            out.println(msg);
+            out.flush();
+        }
     }
 }

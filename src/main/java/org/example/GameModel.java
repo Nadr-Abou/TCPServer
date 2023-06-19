@@ -27,7 +27,7 @@ public class GameModel {
 
     void removeClient(ClientHandler client){
         this.clientList.remove(client);
-        System.out.println("client connected" + this.clientList.size());
+        System.out.println("client connected : " + this.clientList.size());
     }
     void sendToAll(String msg){
         for (ClientHandler c : this.clientList){

@@ -40,6 +40,7 @@ public class MyServer
             }
 
             ClientHandler clientHandler = new ClientHandler(clientSocket);
+            GameModel.getInstance().addClient(clientHandler);
             clientHandler.start();
         }
     }
