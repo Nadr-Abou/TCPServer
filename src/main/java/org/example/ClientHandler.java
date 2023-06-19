@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 public class ClientHandler extends Thread{
 
     private Socket clientSocket;
+    private PrintWriter out = null; // allocate to write answer to client.
+
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -32,7 +34,6 @@ public class ClientHandler extends Thread{
         }
 
 
-        PrintWriter out = null; // allocate to write answer to client.
 
 
         try {
@@ -65,5 +66,10 @@ public class ClientHandler extends Thread{
         manage();
 
         GameModel.getInstance().removeClient(this);
+    }
+
+    void sendMsg(String msg){
+        out.println(msg);
+        out.flush();
     }
 }
