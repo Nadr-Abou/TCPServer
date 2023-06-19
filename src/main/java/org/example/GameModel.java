@@ -23,4 +23,9 @@ public class GameModel {
         this.ClientList.add(client);
     }
 
+    void removeClient(ClientHandler client){
+        this.ClientList.remove(client);
+        System.out.println("client connected" + this.ClientList.size());
+    }
+
 }

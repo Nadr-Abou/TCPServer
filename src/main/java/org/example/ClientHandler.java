@@ -6,9 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Locale;
+
 import com.google.gson.Gson;
 
-import javax.naming.AuthenticationNotSupportedException;
 
 public class ClientHandler extends Thread{
 
@@ -16,12 +17,12 @@ public class ClientHandler extends Thread{
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
-
         InetAddress inetAddress = this.clientSocket.getInetAddress();
         System.out.println("Connected from: " + inetAddress);
     }
 
     boolean manage(){
+
         BufferedReader in;
 
         try {
@@ -44,8 +45,8 @@ public class ClientHandler extends Thread{
 
         String s = "";
         Gson g = new Gson();
-        Command cmd = null;
-        /*while(true){
+
+        while(true){
             try {
                 if ((s = in.readLine()) == null) {
                     break;
@@ -53,38 +54,16 @@ public class ClientHandler extends Thread{
             }catch (IOException e){
                 return false;
             }
-            try{
-                System.out.println(s);
-                cmd = g.fromJson(s, Command.class);
-            }
-            catch (Exception e){}
-            String result;
-            if(cmd!=null){
-                result = executeCmd(cmd);
-                out.println(result);
-            }
-            else{out.println(new Answer(false, "command not reconized").asJSON());}
-        }*/
+            System.out.println(s);
+            out.println(s.toUpperCase());
+        }
         return true;
     }
-    String executeCmd(Command cmd){
-        if (cmd==null){
-            return new Answer(false, "command not reconized").asJSON();
-        }
-        if(cmd.cmd.equals("login")){
-            if(new Users().verify(cmd.param1, cmd.param2)){
-                return new Answer(true, "Login effettuato").asJSON();
-            }
-            else{
-                return new Answer(false, "Utente non trovato").asJSON();
-            }
-        }
-        else{
-            return new ListAnswer().listPrint(new Store().getProdotti());
-        }
-    }
+
     @Override
     public void run() {
         manage();
+
+        GameModel.getInstance().removeClient(this);
     }
 }
