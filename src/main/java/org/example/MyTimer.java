@@ -8,7 +8,7 @@ public class MyTimer extends Thread{
         while (true) {
             Date d = new Date();
             System.out.println(d.toString());
-            //GameModel.getInstance().sendToAll(d.toString());
+            GameModel.getInstance().sendToAll(d.toString());
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
